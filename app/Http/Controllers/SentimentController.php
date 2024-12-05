@@ -41,7 +41,7 @@ class SentimentController extends Controller
         elseif ($compound < -0.05) $sentiment = 'Negative';
 
         // Save sentiment to the database
-        $sentiment = $group->sentiments()->create([
+        $sentimentModel = $group->sentiments()->create([
             'text' => $request->text,
             'sentiment' => $sentiment,
             'compound' => $compound,
@@ -52,7 +52,7 @@ class SentimentController extends Controller
         $averageCompoundScore = $group->sentiments()->avg('compound');
 
         return response()->json([
-            'id' => $sentiment->id,
+            'id' => $sentimentModel->id,
             'text' => $request->text,
             'sentiment' => $sentiment,
             'compound' => $compound,
